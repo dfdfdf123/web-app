@@ -10,6 +10,13 @@
    :body "<h1>Hello, World!"
    :headers {}})
 
+(defn hello
+  [request]
+  (let [name (get-in request [:route-params :name])]
+    {:status 200
+     :body (str "Hello, " name "!")
+     :headers {}}))
+
 (defn goodbuy
   [request]
   {:status 200
@@ -19,6 +26,7 @@
 (defroutes app
   (GET "/" [] welcome)
   (GET "/goodbuy" [] goodbuy)
+  (GET "/hello/:name" [] hello)
   (not-found "<h1>Page not found</h1>"))
 
 (defn -main
